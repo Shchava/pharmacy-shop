@@ -76,6 +76,7 @@
                         <th class="col-md-2 number-column"><spring:message code="shop.ordersList.address"/></th>
                         <th class="col-md-1 number-column" style="width: 20%"><spring:message
                                 code="shop.ordersList.currentStatus"/></th>
+                        <th class="col-md-2 number-column"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,7 +92,7 @@
                             <th>${order.name}</th>
                             <th>${order.address}</th>
                             <th>${order.currentStatus}</th>
-                            <th><a class="btn btn-primary" href="/shop/order/${order.productId}" role="button">
+                            <th><a class="btn btn-primary" href="/shop/order/${order.orderId}" role="button">
                                 <spring:message code="doctor.page.patientsList.open"/></a>
                             </th>
                         </tr>

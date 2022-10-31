@@ -14,8 +14,8 @@
     <sec:csrfMetaTags/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">--%>
+    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+    <%--          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">--%>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
@@ -43,10 +43,6 @@
 
         .fill-order-form form {
             color: #9ba5a8;
-            /*border-radius: 3px;*/
-            /*margin-bottom: 5px;*/
-            /*background: #fff;*/
-            /*box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);*/
         }
 
         .fill-order-form h2 {
@@ -95,8 +91,20 @@
             width: 100%;
         }
 
+        .order-data {
+            font-weight: normal;
+            font-size: 20px;
+            display: inline;
+            color: #4f4848;
+        }
+
+        label {
+            font-size: 20px;
+        }
+
         h2 {
             text-align: center;
+            font-weight: bold;
         }
         h4 {
             text-align: center;
@@ -112,7 +120,7 @@
         <div class="col-sm-8 text-left container">
             <div class="table-wrapper">
                 <div class="table-title">
-                    <h2><spring:message code="shop.buyPage.title"/></h2>
+                    <h2><spring:message code="shop.orderPage.reviewOfOrder"/></h2>
                 </div>
 
                 <h4><spring:message code="shop.buyPage.orderedProducts"/></h4>
@@ -147,86 +155,72 @@
                         code="diagnosisPrediction.shop.priceHrivna"/></h4>
 
 
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.name"/></label>
+                    <div class="order-data">
+                        ${order.name}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.phoneNumber"/></label>
+                    <div class="order-data">
+                        ${order.phoneNumber}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.email"/></label>
+                    <div class="order-data">
+                        ${order.email}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.address"/></label>
+                    <div class="order-data">
+                        ${order.address}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.paymentMethod"/></label>
+                    <div class="order-data">
+                        ${order.paymentMethod}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.deliveryMethod"/></label>
+                    <div class="order-data">
+                        ${order.deliveryMethod}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.comment"/></label>
+                    <div class="order-data">
+                        ${order.comment}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.notReceiveCall"/></label>
+                    <div class="order-data">
+                        ${order.notReceiveCall}
+                    </div>
+                </div>
+
+
                 <div class="fill-order-form">
                     <springForm:form method="POST" modelAttribute="order" action="/shop/buy">
                         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-                        <h2><spring:message code="shop.buyPage.orderFormLabel"/></h2>
-
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.name"/></label>
-                            <springForm:errors path="name" cssClass="alert-danger error-message"/>
-
-                            <springForm:input type="text" class="form-control" path="name" required="required"/>
-                        </div>
-
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.phone"/></label>
-                            <springForm:errors path="phoneNumber" cssClass="alert-danger error-message"/>
-                            <springForm:input type="text" class="form-control" path="phoneNumber" required="required"/>
-                        </div>
 
 
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.email"/></label>
-                            <springForm:errors path="email" cssClass="alert-danger error-message"/>
-                            <springForm:input type="text" class="form-control" path="email" required="required"/>
-                        </div>
 
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.address"/></label>
-                            <springForm:errors path="address" cssClass="alert-danger error-message"/>
-                            <springForm:input type="text" class="form-control" path="address"/>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.paymentMethod"/></label>
-                            <springForm:errors path="paymentMethod" cssClass="alert-danger error-message"/>
-                            <springForm:select path="paymentMethod" class="form-control">
-                                <option value="ON_PLACE"><spring:message
-                                        code="rshop.buyPage.paymentMethod.onPlace"/></option>
-                                <option value="BY_CARD"><spring:message
-                                        code="shop.buyPage.paymentMethod.byCard"/></option>
-                            </springForm:select>
-                        </div>
-
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.deleveryMethod"/></label>
-                            <springForm:errors path="deliveryMethod" cssClass="alert-danger error-message"/>
-                            <springForm:select path="deliveryMethod" class="form-control">
-                                <option value="SELF_TAKEN"><spring:message
-                                        code="shop.buyPage.deleveryMethod.selfTaken"/></option>
-                                <option value="NOVA_POSHTA"><spring:message
-                                        code="shop.buyPage.deleveryMethod.novaposhta"/></option>
-                                <option value="UKRPOST"><spring:message
-                                        code="shop.buyPage.deleveryMethod.ukrpost"/></option>
-                            </springForm:select>
-                        </div>
-
-                        <div class="form-group">
-                            <label><spring:message code="shop.buyPage.comments"/></label>
-                            <springForm:errors path="comment" cssClass="alert-danger error-message"/>
-                            <springForm:input type="text" class="form-control" path="comment"/>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="check-box-container">
-                                <label><spring:message code="shop.buyPage.receiveCalls"/></label>
-                                <springForm:checkbox path="notReceiveCall" cssClass="check-box"/>
-                            </div>
-                        </div>
-
-                        <c:forEach var="person" items="${order.products}" varStatus="order">
-                            <springForm:input path="products[${order.index}]" type="hidden"/>
-                            <springForm:input path="products[${order.index}].productOrderId" type="hidden"/>
-                            <springForm:input path="products[${order.index}].product" type="hidden"/>
-                            <springForm:input path="products[${order.index}].count" type="hidden"/>
-                        </c:forEach>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block btn-lg submit-button"><spring:message
-                                    code="shop.buyPage.createOrder"/></button>
-                        </div>
                     </springForm:form>
                     .
                 </div>

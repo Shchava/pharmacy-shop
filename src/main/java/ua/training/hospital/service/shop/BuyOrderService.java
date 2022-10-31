@@ -9,4 +9,5 @@ public interface BuyOrderService {
     Optional<BuyOrder> createBuyOrder(BuyOrder productOrder, String userId);
     Optional<BuyOrder> createBuyOrder(BuyOrder productOrder);
     List<BuyOrder> findBuyOrders(String userEmail);
+    Optional<BuyOrder> findBuyOrder(long orderId);
 }

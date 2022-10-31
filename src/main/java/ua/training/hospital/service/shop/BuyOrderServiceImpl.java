@@ -68,4 +68,9 @@ public class BuyOrderServiceImpl implements BuyOrderService {
     public List<BuyOrder> findBuyOrders(String userEmail) {
         return buyOrderRepository.getBuyOrdersByOwnerEmail(userEmail);
     }
+
+    @Override
+    public Optional<BuyOrder> findBuyOrder(long orderId) {
+        return buyOrderRepository.getBuyOrderByOrderId(orderId);
+    }
 }
