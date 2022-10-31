@@ -67,10 +67,8 @@ public class HospitalAuthenticationSuccessHandler implements AuthenticationSucce
             }
         }
 
-        if (isPersonal) {
-            return "/patientsList";
-        } else if (isPatient) {
-            return "/patient" + authData.getId();
+        if (isPatient || isPersonal) {
+            return "/shop/0";
         } else {
             throw new IllegalStateException();
         }
