@@ -76,7 +76,6 @@ public class ShopBuyPageController {
         BuyOrder order = new BuyOrder();
         order.setProducts(orders);
 
-        order.setName("test");
         model.addAttribute("order", order);
         return "shop/shopBuyPage";
     }

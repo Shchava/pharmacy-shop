@@ -70,6 +70,8 @@
                     <thead>
                     <tr>
                         <th class="col-md-8 text-column"><spring:message code="shop.ordersList.id"/></th>
+                        <th class="col-md-8 text-column"><spring:message code="shop.ordersList.shortList"/></th>
+                        <th class="col-md-2 number-column"><spring:message code="shop.buyPage.productPriceLabel"/></th>
                         <th class="col-md-2 number-column"><spring:message code="shop.ordersList.name"/></th>
                         <th class="col-md-2 number-column"><spring:message code="shop.ordersList.address"/></th>
                         <th class="col-md-1 number-column" style="width: 20%"><spring:message
@@ -80,9 +82,18 @@
                     <c:forEach items="${orders}" var="order">
                         <tr>
                             <th>${order.orderId}</th>
+                            <th>${order.shortListOfProducts}</th>
+                            <th><fmt:formatNumber type="number"
+                                                  maxFractionDigits="0"
+                                                  value="${order.totalPrice/100}"/>.<c:out
+                                    value="${order.totalPrice%100}"/> <spring:message
+                                    code="diagnosisPrediction.shop.priceHrivna"/></th>
                             <th>${order.name}</th>
                             <th>${order.address}</th>
                             <th>${order.currentStatus}</th>
+                            <th><a class="btn btn-primary" href="/shop/order/${order.productId}" role="button">
+                                <spring:message code="doctor.page.patientsList.open"/></a>
+                            </th>
                         </tr>
                     </c:forEach>
                     </tbody>
