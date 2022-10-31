@@ -52,9 +52,10 @@ public class HospitalAuthenticationSuccessHandler implements AuthenticationSucce
     }
 
     public static String determineTargetUrl(Authentication authentication) {
-        UserAuthentication authData = (UserAuthentication)authentication.getPrincipal();
+        UserAuthentication authData = (UserAuthentication) authentication.getPrincipal();
         boolean isPersonal = false;
         boolean isPatient = false;
+        boolean isShopWorker = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
@@ -64,10 +65,16 @@ public class HospitalAuthenticationSuccessHandler implements AuthenticationSucce
             } else if (grantedAuthority.getAuthority().equals("ROLE_PATIENT")) {
                 isPatient = true;
                 break;
+            } else if (grantedAuthority.getAuthority().equals("ROLE_SHOP_WORKER")) {
+                isShopWorker = true;
+                break;
             }
         }
 
+
         if (isPatient || isPersonal) {
+            return "/shop/0";
+        } else if (isShopWorker) {
             return "/shop/0";
         } else {
             throw new IllegalStateException();
