@@ -45,6 +45,27 @@
             width: 98%;
             margin: 0.5em;
         }
+        .table-title {
+            padding-right: 0;
+        }
+
+        .title {
+            display: inline;
+            width: max-content;
+            text-align: left;
+            float: left;
+            flex-grow: 10;
+
+        }
+
+        .show-entries {
+            flex-grow: 1;
+            float: right;
+            margin-right: 15px;
+            padding-right: 0;
+            width: min-content;
+
+        }
 
         h2 {
             text-align: center;
@@ -63,8 +84,37 @@
 
         <div class="col-sm-8 text-left container">
             <div class="table-wrapper">
-                <div class="table-title">
-                    <h2><spring:message code="shop.ordersList.title"/></h2>
+
+                <c:set var="refreshLink" value="/shop/${pageName}/{page}?recordsPerPage={records}"/>
+                <c:set var = "refWithPage" value = "${fn:replace(refreshLink, '{page}', page.number)}"/>
+                <c:set var ="fullSelfLink" value = "${fn:replace(refWithPage, '{records}', page.size)}"/>
+
+                <div class="table-title row">
+                    <h2 class="title"><spring:message code="shop.ordersList.title"/></h2>
+                    <div class="show-entries">
+                    <span><spring:message code="pagination.show"/></span>
+                    <div class="dropdown">
+                        <button class="btn btn-primary  float-none dropdown-toggle paginationDropdown"
+                                type="button" data-toggle="dropdown">${page.size}</button>
+                        <ul class="dropdown-menu ">
+                            <c:set var = "refWithPage" value = "${fn:replace(refreshLink, '{page}', page.number)}"/>
+
+                            <li><a class="dropdown-item"
+                                   href="<c:out value="${fn:replace(refWithPage, '{records}', '5')}"/>">5</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="<c:out value="${fn:replace(refWithPage, '{records}', '10')}"/>">10</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="<c:out value="${fn:replace(refWithPage, '{records}', '15')}"/>">15</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="<c:out value="${fn:replace(refWithPage, '{records}', '20')}"/>">20</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span> <spring:message code="pagination.entries"/></span>
+                </div>
                 </div>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -80,7 +130,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${orders}" var="order">
+                    <c:forEach items="${page.content}" var="order">
                         <tr>
                             <th>${order.orderId}</th>
                             <th>${order.shortListOfProducts}</th>
@@ -99,6 +149,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <%@ include file="../reusable/pageableTableFooter.jspf"%>
             </div>
 
         </div>

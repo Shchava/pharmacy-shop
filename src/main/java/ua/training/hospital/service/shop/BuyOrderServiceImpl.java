@@ -3,6 +3,10 @@ package ua.training.hospital.service.shop;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.training.hospital.entity.User;
 import ua.training.hospital.entity.enums.Status;
@@ -15,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Service
 @AllArgsConstructor
@@ -65,8 +71,13 @@ public class BuyOrderServiceImpl implements BuyOrderService {
     }
 
     @Override
-    public List<BuyOrder> findBuyOrders(String userEmail) {
-        return buyOrderRepository.getBuyOrdersByOwnerEmail(userEmail);
+    public Page<BuyOrder> getAllBuyOrders(int pageNumber, int requestsPerPage) {
+        return buyOrderRepository.findAll( PageRequest.of(pageNumber, requestsPerPage, Sort.by(DESC, "dateCreated")));
+    }
+
+    @Override
+    public Page<BuyOrder> findBuyOrders(int pageNumber, int requestsPerPage, String userEmail) {
+        return buyOrderRepository.getBuyOrdersByOwnerEmail(userEmail, PageRequest.of(pageNumber,requestsPerPage));
     }
 
     @Override
