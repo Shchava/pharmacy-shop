@@ -30,6 +30,7 @@
     <spring:message var="dateFormat" code="dateFormat"/>
     <c:set var="foramter" value='${DateTimeFormatter.ofPattern(dateFormat)}'/>
 
+
     <style>
         .number-column {
             width: 20%;
@@ -215,6 +216,13 @@
                     <label><spring:message code="shop.orderPage.notReceiveCall"/></label>
                     <div class="order-data">
                         <spring:message code="shop.orderPage.notRecieveCall.${order.notReceiveCall}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.dateCreted"/></label>
+                    <div class="order-data">
+                        ${order.dateCreated.format(foramter)}
                     </div>
                 </div>
 

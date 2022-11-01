@@ -1,4 +1,4 @@
-package ua.training.hospital.service.shop;
+package ua.training.hospital.service.shop.impl;
 
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ua.training.hospital.entity.shop.Product;
 import ua.training.hospital.repository.shop.ProductsRepository;
+import ua.training.hospital.service.shop.ProductsService;
 
 import java.util.Optional;
 

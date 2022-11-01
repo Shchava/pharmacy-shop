@@ -89,7 +89,7 @@
                             <span> <spring:message code="pagination.entries"/></span>
                         </div>
                             <form action="${fullSelfLink}" method="get" class="search-container">
-                                <input type="text" name="nameSearch" class="filter-field">
+                                <input type="text" name="nameSearch" class="filter-field" value="${searchVal}">
                                 <input type="hidden" name="recordsPerPage" value="${page.size}" >
                                 <input type="submit" class="btn btn-primary filter-submit" value=<spring:message code="pagination.find"/> >
                             </form>

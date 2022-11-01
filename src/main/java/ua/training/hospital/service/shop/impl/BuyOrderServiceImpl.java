@@ -1,11 +1,10 @@
-package ua.training.hospital.service.shop;
+package ua.training.hospital.service.shop.impl;
 
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.training.hospital.entity.User;
@@ -14,6 +13,8 @@ import ua.training.hospital.entity.shop.BuyOrder;
 import ua.training.hospital.entity.shop.ProductOrder;
 import ua.training.hospital.repository.UserRepository;
 import ua.training.hospital.repository.shop.BuyOrderRepository;
+import ua.training.hospital.service.shop.BuyOrderService;
+import ua.training.hospital.service.shop.ProductsOrderService;
 
 import java.time.LocalDateTime;
 import java.util.List;

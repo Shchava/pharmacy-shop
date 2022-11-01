@@ -10,7 +10,15 @@
 <html>
 <head>
     <title><spring:message code="pageNotfound.title"/></title>
+    <link rel="stylesheet" href="/css/doctorPageMarkUp.css"/>
+    <link rel="stylesheet" href="/css/listOfEntries.css"/>
+    <link rel="stylesheet" href="/css/doctorPage.css">
+    <link rel="stylesheet" href="/css/pagination.css"/>
+    <link rel="stylesheet" href="/css/predictDiagnosisPageMarkup.css">
+    <link rel="stylesheet" href="/css/forms.css">
+
 </head>
+<%@ include file="reusable/navbar.jspf" %>
 <body>
 <h1><spring:message code="pageNotfound.header"/></h1>
 </body>

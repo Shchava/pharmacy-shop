@@ -275,7 +275,6 @@
         });
 
         $("#buyButton").click(()=>{
-            console.log("test");
             let buyForm = $("#buyForm");
             $("#buyFormCount").val($("#counter").val());
             // console.log()
@@ -284,7 +283,6 @@
         })
 
         $("#addToCartButton").click(()=>{
-            console.log("test");
             let buyForm = $("#buyForm");
             $("#buyFormCount").val($("#counter").val());
             buyForm.attr("action", "/shop/addToCart");

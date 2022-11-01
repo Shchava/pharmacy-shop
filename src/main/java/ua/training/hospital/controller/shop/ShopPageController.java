@@ -32,6 +32,7 @@ public class ShopPageController {
         logger.debug("requested /shop");
 
         Page<Product> page = productsService.getAllProductsWithTitleContaining(pageNumber, recordsPerPage, nameSearch);
+        model.addAttribute("searchVal", nameSearch);
         model.addAttribute("page", page);
 
         logger.debug("returning shop/shopPage.jsp page");

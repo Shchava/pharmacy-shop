@@ -13,10 +13,12 @@
                     <a class="nav-link" href="/shop/0"><spring:message code="header.shop"/><span
                             class="sr-only">(current)</span></a>
                 </li>
+                <sec:authorize access="isAuthenticated()">
                 <li>
                     <a class="nav-link" href="/shop/cart"><spring:message code="header.cart"/><span
                             class="sr-only">(current)</span></a>
                 </li>
+                </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <li>
                         <a class="nav-link" href="/shop/orders/0"><spring:message code="header.orders"/><span
@@ -38,6 +40,12 @@
                     <a class="nav-link" href="/shop/feedback"><spring:message code="header.feedBackForm"/><span
                             class="sr-only">(current)</span></a>
                 </li>
+                <sec:authorize access="isAuthenticated()">
+                <li>
+                    <a class="nav-link" href="/shop/prescriptions/0"><spring:message code="header.prescriptions"/><span
+                            class="sr-only">(current)</span></a>
+                </li>
+                </sec:authorize>
             </ul>
             <ul class="navbar-nav ">
                 <li class="nav-item dropdown">

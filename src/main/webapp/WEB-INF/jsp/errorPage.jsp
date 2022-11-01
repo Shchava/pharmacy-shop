@@ -7,8 +7,16 @@
 <html>
 <head>
     <title><spring:message code="error.title"/></title>
+    <link rel="stylesheet" href="/css/doctorPageMarkUp.css"/>
+    <link rel="stylesheet" href="/css/listOfEntries.css"/>
+    <link rel="stylesheet" href="/css/doctorPage.css">
+    <link rel="stylesheet" href="/css/pagination.css"/>
+    <link rel="stylesheet" href="/css/predictDiagnosisPageMarkup.css">
+    <link rel="stylesheet" href="/css/forms.css">
+
 </head>
 <body>
+<%@ include file="reusable/navbar.jspf" %>
 <h1><spring:message code="error.header"/></h1>
 </body>
 </html>

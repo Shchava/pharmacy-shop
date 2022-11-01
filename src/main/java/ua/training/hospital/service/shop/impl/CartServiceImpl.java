@@ -1,4 +1,4 @@
-package ua.training.hospital.service.shop;
+package ua.training.hospital.service.shop.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import ua.training.hospital.entity.shop.Cart;
 import ua.training.hospital.entity.shop.ProductOrder;
 import ua.training.hospital.repository.shop.CartRepository;
 import ua.training.hospital.repository.shop.ProductOrderRepository;
+import ua.training.hospital.service.shop.CartService;
 import ua.training.hospital.service.user.UserService;
 
 import java.util.ArrayList;
