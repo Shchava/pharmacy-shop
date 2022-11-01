@@ -141,7 +141,7 @@
                                     code="diagnosisPrediction.shop.priceHrivna"/></th>
                             <th>${order.name}</th>
                             <th>${order.address}</th>
-                            <th>${order.currentStatus}</th>
+                            <th><spring:message code="shop.orderPage.status.${order.currentStatus}"/></th>
                             <th><a class="btn btn-primary" href="/shop/order/${order.orderId}" role="button">
                                 <spring:message code="doctor.page.patientsList.open"/></a>
                             </th>

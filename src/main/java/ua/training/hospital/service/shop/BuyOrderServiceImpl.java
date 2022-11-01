@@ -84,4 +84,17 @@ public class BuyOrderServiceImpl implements BuyOrderService {
     public Optional<BuyOrder> findBuyOrder(long orderId) {
         return buyOrderRepository.getBuyOrderByOrderId(orderId);
     }
+
+    @Override
+    public Optional<BuyOrder> updateStatus(long id, Status status) {
+        Optional<BuyOrder> found = buyOrderRepository.findById(id);
+        if(found.isPresent()) {
+            BuyOrder update = found.get();
+            update.setCurrentStatus(status);
+            return Optional.of(buyOrderRepository.save(update));
+
+        }
+
+        return found;
+    }
 }

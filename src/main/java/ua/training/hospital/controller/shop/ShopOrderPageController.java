@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.hospital.entity.UserAuthentication;
+import ua.training.hospital.entity.enums.Status;
 import ua.training.hospital.entity.shop.BuyOrder;
 import ua.training.hospital.service.shop.BuyOrderService;
 
@@ -28,6 +30,33 @@ public class ShopOrderPageController {
     private static final Logger logger = LogManager.getLogger(ShopOrderPageController.class);
 
     private BuyOrderService buyOrderService;
+
+
+    @PreAuthorize("hasAnyRole('SHOP_WORKER')")
+    @RequestMapping(value = "/shop/order/{orderId}/update", method = RequestMethod.GET)
+    public String update(@PathVariable long orderId,
+                         @RequestParam Status status,
+                         Model model, Authentication authentication) {
+
+        Optional<BuyOrder> buyOrder = buyOrderService.updateStatus(orderId, status);
+
+
+        if (!buyOrder.isPresent()) {
+            return "pageNotFound";
+        }
+
+        int totalPrice = buyOrder.get().getProducts().stream()
+                .mapToInt(request -> request.getCount() * request.getProduct().getPrice())
+                .sum();
+
+        model.addAttribute("totalPrice", totalPrice);
+
+        buyOrder.ifPresent(order -> model.addAttribute("order", order));
+
+        return "shop/showOrder";
+    }
+
+
 
     @RequestMapping(value = "/shop/order/{orderId}", method = RequestMethod.GET)
     public String showHelpRequest(@PathVariable long orderId,

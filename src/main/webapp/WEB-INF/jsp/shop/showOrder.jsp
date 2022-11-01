@@ -98,6 +98,10 @@
             color: #4f4848;
         }
 
+        .dropdown-data {
+            display: inline;
+        }
+
         label {
             font-size: 20px;
         }
@@ -187,7 +191,7 @@
                 <div class="form-group">
                     <label><spring:message code="shop.orderPage.paymentMethod"/></label>
                     <div class="order-data">
-                        ${order.paymentMethod}
+                        <spring:message code="shop.orderPage.paymentMethod.${order.paymentMethod}"/>
                     </div>
                 </div>
 
@@ -195,7 +199,7 @@
                 <div class="form-group">
                     <label><spring:message code="shop.orderPage.deliveryMethod"/></label>
                     <div class="order-data">
-                        ${order.deliveryMethod}
+                        <spring:message code="shop.orderPage.deliveryMethod.${order.deliveryMethod}"/>
                     </div>
                 </div>
 
@@ -210,21 +214,55 @@
                 <div class="form-group">
                     <label><spring:message code="shop.orderPage.notReceiveCall"/></label>
                     <div class="order-data">
-                        ${order.notReceiveCall}
+                        <spring:message code="shop.orderPage.notRecieveCall.${order.notReceiveCall}"/>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label><spring:message code="shop.orderPage.status"/></label>
+                    <sec:authorize access="!hasRole('SHOP_WORKER')">
+                        <div class="order-data">
+                            <spring:message code="shop.orderPage.status.${order.currentStatus}"/>
+                        </div>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('SHOP_WORKER')">
+                        <li class="nav-item dropdown order-data dropdown-data">
+                            <a class="nav-link dropdown-toggle dropdown-data" id="dropdown" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false"><spring:message code="shop.orderPage.status.${order.currentStatus}"/></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown">
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=CREATED"><spring:message code="shop.orderPage.status.CREATED"/></a>
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=IN_PROCESSING"><spring:message code="shop.orderPage.status.IN_PROCESSING"/></a>
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=IN_DELIVERY"><spring:message code="shop.orderPage.status.IN_DELIVERY"/></a>
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=WAITING_IN_PLACE_OF_GIVING"><spring:message code="shop.orderPage.status.WAITING_IN_PLACE_OF_GIVING"/></a>
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=DONE"><spring:message code="shop.orderPage.status.DONE"/></a>
+                                <a class="dropdown-item"
+                                   href="/shop/order/${order.orderId}/update?status=CANCELED"><spring:message code="shop.orderPage.status.CANCELED"/></a>
 
-                <div class="fill-order-form">
-                    <springForm:form method="POST" modelAttribute="order" action="/shop/buy">
-                        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+                            </div>
+                        </li>
+                    </sec:authorize>
 
-
-
-                    </springForm:form>
-                    .
                 </div>
 
+
+
+                <sec:authorize access="hasRole('SHOP_WORKER')">
+                    <div class="fill-order-form">
+                        <springForm:form method="POST" modelAttribute="order" action="/shop/buy">
+                            <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+
+
+
+                        </springForm:form>
+                        .
+                    </div>
+
+                </sec:authorize>
 
             </div>
         </div>
