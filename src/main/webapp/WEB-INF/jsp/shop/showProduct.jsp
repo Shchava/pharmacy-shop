@@ -285,7 +285,7 @@
         $("#addToCartButton").click(()=>{
             let buyForm = $("#buyForm");
             $("#buyFormCount").val($("#counter").val());
-            buyForm.attr("action", "/shop/addToCart");
+            buyForm.attr("action", "/addToCart");
             buyForm.submit();
         })
     });
