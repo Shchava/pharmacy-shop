@@ -125,7 +125,17 @@
         <div class="col-sm-8 text-left container">
             <div class="table-wrapper">
                 <div class="table-title">
-                    <h2><spring:message code="shop.orderPage.reviewOfOrder"/></h2>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h2 style="position: center"><spring:message code="shop.orderPage.reviewOfOrder"/></h2>
+                        </div>
+                        <div class="col-sm-8">
+                            <a class="btn btn-primary"
+                               href="/order/${order.orderId}/cancelOrder"><spring:message
+                                    code="shop.orderPage.cancel"/></a>
+                        </div>
+                    </div>
                 </div>
 
                 <h4><spring:message code="shop.buyPage.orderedProducts"/></h4>

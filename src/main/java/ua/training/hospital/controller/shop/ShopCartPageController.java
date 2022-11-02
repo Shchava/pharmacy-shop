@@ -5,11 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.training.hospital.entity.exceptions.ResourceNotFoundException;
 import ua.training.hospital.entity.shop.Cart;
+import ua.training.hospital.entity.shop.Prescription;
 import ua.training.hospital.entity.shop.ProductOrder;
 import ua.training.hospital.service.shop.CartService;
 
@@ -66,6 +68,15 @@ public class ShopCartPageController {
 
         return "shop/showProduct";
     }
+
+    @RequestMapping(value = "/cart", method = RequestMethod.POST)
+    public String deletePrescription(@RequestParam(required = false) String productId,
+                                     Principal principal,
+                                     Model model) {
+        cartService.deleteOrderFromCart(Long.parseLong(productId), principal.getName());
+        return defaultShowCart(principal, model);
+    }
+
 
     private int getTotalPrice(Cart cart) {
         return cart.getProducts().stream()

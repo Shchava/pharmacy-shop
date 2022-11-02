@@ -28,12 +28,24 @@ public class ShopOrderPageController {
 
     private BuyOrderService buyOrderService;
 
+    @RequestMapping(value = "/order/{orderId}/cancelOrder", method = RequestMethod.GET)
+    public String cancel(@PathVariable long orderId,
+                         Authentication authentication,
+                         Model model) {
+
+        String pageNotFound = checkAuthority(orderId, authentication);
+        if (pageNotFound != null) return pageNotFound;
+
+
+        return update(orderId, Status.CANCELED, model);
+    }
+
 
     @PreAuthorize("hasAnyRole('SHOP_WORKER')")
     @RequestMapping(value = "/order/{orderId}/update", method = RequestMethod.GET)
     public String update(@PathVariable long orderId,
                          @RequestParam Status status,
-                         Model model, Authentication authentication) {
+                         Model model) {
 
         Optional<BuyOrder> buyOrder = buyOrderService.updateStatus(orderId, status);
 
@@ -62,15 +74,9 @@ public class ShopOrderPageController {
         Optional<BuyOrder> buyOrder = buyOrderService.findBuyOrder(orderId);
 
 
-        if (!buyOrder.isPresent()) {
-            return "pageNotFound";
-        }
+        String pageNotFound = checkAuthority(authentication, buyOrder);
+        if (pageNotFound != null) return pageNotFound;
 
-        if (!(buyOrder.get().getOwner().getIdUser() == ((UserAuthentication)  authentication.getPrincipal()).getId()) &&
-                authentication.getAuthorities().stream().map(
-                        f-> f.getAuthority()).noneMatch(f -> f.equals("ROLE_SHOP_WORKER"))) {
-            return "pageNotFound";
-        }
 
         logger.debug("requested /shop/product/");
 
@@ -86,5 +92,24 @@ public class ShopOrderPageController {
         buyOrder.ifPresent(order -> model.addAttribute("order", order));
 
         return "shop/showOrder";
+    }
+
+
+    private String checkAuthority(long orderId, Authentication authentication) {
+        Optional<BuyOrder> buyOrder = buyOrderService.findBuyOrder(orderId);
+        return checkAuthority(authentication, buyOrder);
+    }
+
+    private String checkAuthority(Authentication authentication, Optional<BuyOrder> buyOrder) {
+        if (!buyOrder.isPresent()) {
+            return "pageNotFound";
+        }
+
+        if (!(buyOrder.get().getOwner().getIdUser() == ((UserAuthentication)  authentication.getPrincipal()).getId()) &&
+                authentication.getAuthorities().stream().map(
+                        f-> f.getAuthority()).noneMatch(f -> f.equals("ROLE_SHOP_WORKER"))) {
+            return "pageNotFound";
+        }
+        return null;
     }
 }

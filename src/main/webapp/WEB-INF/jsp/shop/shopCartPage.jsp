@@ -31,14 +31,6 @@
     <c:set var="foramter" value='${DateTimeFormatter.ofPattern(dateFormat)}'/>
 
     <style>
-        .number-column {
-            width: 20%;
-        !important;
-        }
-
-        .text-column {
-            width: 100%;
-        }
 
         .submit-button {
             display: block;
@@ -69,10 +61,10 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th class="col-md-8 text-column"><spring:message code="shop.buyPage.productNameLabel"/></th>
-                        <th class="col-md-2 number-column"><spring:message code="shop.buyPage.productPriceLabel"/></th>
-                        <th class="col-md-1 number-column" style="width: 20%"><spring:message
-                                code="shop.buyPage.productCount"/></th>
+                        <th class="col" style="width: 60%"><spring:message code="shop.buyPage.productNameLabel"/></th>
+                        <th class="col" style="width: 30%"><spring:message code="shop.buyPage.productPriceLabel"/></th>
+                        <th class="col" style="width: 30%"><spring:message code="shop.prescriptions.diagnosis"/></th>
+                        <th class="col" style="width: 10%"> </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -85,6 +77,14 @@
                                     value="${product.product.price%100}"/> <spring:message
                                     code="diagnosisPrediction.shop.priceHrivna"/></th>
                             <th>${product.count}</th>
+                            <th>
+                                <form method="post" id="buyForm" action="/cart">
+                                    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
+                                    <input name="productId" type="hidden" value = "${product.productOrderId}"/>
+                                    <input type="submit" class="btn btn-primary" value="<spring:message code="shop.prescriptions.delete"/>"/>
+                                </form>
+                            </th>
+
                         </tr>
                     </c:forEach>
                     </tbody>

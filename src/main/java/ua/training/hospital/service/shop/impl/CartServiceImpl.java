@@ -42,18 +42,33 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Optional<Cart> createCartOrAddItemToExistingCart(ProductOrder newProduct, String userEmail) {
+
+        Optional<Cart> existingCart = cartRepository.findFirstByOwnerEmail(userEmail);
+        if(existingCart.isPresent()) {
+            Optional<ProductOrder> existingOrder  = existingCart.get()
+                    .getProducts()
+                    .stream()
+                    .filter(product -> product.getProduct().getProductId() == newProduct.getProduct().getProductId()).findFirst();
+
+            if(existingOrder.isPresent()) {
+                existingOrder.get().setCount(existingOrder.get().getCount() + newProduct.getCount());
+                productOrderRepository.save(existingOrder.get());
+
+                return existingCart;
+            }
+
+
+        }
+
         Optional<ProductOrder> productOrder = getOrCreateProductOrder(newProduct);
         if(!productOrder.isPresent()) {
             return Optional.empty();
         }
 
+        if(existingCart.isPresent()) {
+            existingCart.get().getProducts().add(productOrder.get());
+            return Optional.of(cartRepository.save(existingCart.get()));
 
-        Optional<Cart> existing = cartRepository.findFirstByOwnerEmail(userEmail);
-        if(existing.isPresent()) {
-            final Cart cartEntry = existing.get();
-            cartEntry.getProducts().add(productOrder.get());//redo
-
-            return Optional.of(cartRepository.save(cartEntry));
         } else {
             Optional<User> owner = userService.getUser(userEmail);
             if(!owner.isPresent()) {
@@ -70,6 +85,24 @@ public class CartServiceImpl implements CartService {
 
             return Optional.of(cartRepository.save(cartEntry));
         }
+    }
+
+    @Override
+    public void deleteOrderFromCart(long orderId, String userEmail) {
+        Optional<Cart> existingCart = cartRepository.findFirstByOwnerEmail(userEmail);
+        if(!existingCart.isPresent())
+            return;
+
+        for(int i =0; i < existingCart.get().getProducts().size(); i++) {
+            if(existingCart.get().getProducts().get(i).getProductOrderId() == orderId) {
+                existingCart.get().getProducts().remove(i);
+
+                cartRepository.save(existingCart.get());
+                break;
+            }
+        }
+
+        productOrderRepository.deleteById(orderId);
     }
 
     private Optional<ProductOrder> getOrCreateProductOrder (ProductOrder newProductOrder) {

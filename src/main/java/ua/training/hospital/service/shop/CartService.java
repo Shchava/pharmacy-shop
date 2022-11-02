@@ -13,4 +13,5 @@ public interface CartService {
     Optional<Cart> getCart (String userId);
     Optional<Cart> createCart (String userId);
     Optional<Cart> createCartOrAddItemToExistingCart (ProductOrder newProduct, String userId);
+    void deleteOrderFromCart (long orderId, String userId);
 }
