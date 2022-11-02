@@ -6,9 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import ua.training.hospital.entity.enums.Status;
 import ua.training.hospital.entity.shop.BuyOrder;
 import ua.training.hospital.service.shop.BuyOrderService;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -33,7 +30,7 @@ public class ShopOrderPageController {
 
 
     @PreAuthorize("hasAnyRole('SHOP_WORKER')")
-    @RequestMapping(value = "/shop/order/{orderId}/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/{orderId}/update", method = RequestMethod.GET)
     public String update(@PathVariable long orderId,
                          @RequestParam Status status,
                          Model model, Authentication authentication) {
@@ -58,7 +55,7 @@ public class ShopOrderPageController {
 
 
 
-    @RequestMapping(value = "/shop/order/{orderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/{orderId}", method = RequestMethod.GET)
     public String showHelpRequest(@PathVariable long orderId,
                                   Model model, Authentication authentication) {
 

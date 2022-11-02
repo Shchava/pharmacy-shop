@@ -27,7 +27,7 @@ public class ShopOrdersController {
     BuyOrderService orderService;
 
 
-    @RequestMapping(value = "/shop/orders/{pageNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/orders/{pageNumber}", method = RequestMethod.GET)
     public String getOrders(@PathVariable(required = false) int pageNumber,
                             @RequestParam(defaultValue = "10", required = false) int recordsPerPage,
                             Principal principal,
@@ -42,7 +42,7 @@ public class ShopOrdersController {
     }
 
     @PreAuthorize("hasAnyRole('SHOP_WORKER')")
-    @RequestMapping(value = "/shop/allOrders/{pageNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allOrders/{pageNumber}", method = RequestMethod.GET)
     public String getAllOrders(@PathVariable(required = false) int pageNumber,
                                @RequestParam(defaultValue = "10", required = false) int recordsPerPage,
                                Model model) {

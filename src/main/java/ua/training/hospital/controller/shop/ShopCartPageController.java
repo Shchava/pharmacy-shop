@@ -24,7 +24,7 @@ public class ShopCartPageController {
     private final CartService cartService;
 
 
-    @RequestMapping(value = "/shop/cart", method = RequestMethod.GET)
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String defaultShowCart(Principal principal,
                                   Model model) {
 
@@ -51,7 +51,7 @@ public class ShopCartPageController {
         return "shop/shopCartPage";
     }
 
-    @RequestMapping(value = "/shop/addToCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/addToCart", method = RequestMethod.POST)
     public String register(Model model,
                            @ModelAttribute("order") ProductOrder order,
                            Principal principal) {

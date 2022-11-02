@@ -10,6 +10,7 @@ import ua.training.hospital.entity.shop.Product;
 import ua.training.hospital.repository.shop.ProductsRepository;
 import ua.training.hospital.service.shop.ProductsService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,10 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public Page<Product> getAllProductsWithTitleContaining(int pageNumber, int requestsPerPage, String nameSearch) {
         return repository.findByNameContaining(nameSearch, PageRequest.of(pageNumber,requestsPerPage));
+    }
+
+    @Override
+    public List<Product> getAllProductsWithTitleContaining(String nameSearch) {
+        return repository.findByNameContaining(nameSearch, PageRequest.of(0,10)).getContent();
     }
 }

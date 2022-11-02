@@ -59,11 +59,10 @@
         }
 
         .show-entries {
-            flex-grow: 1;
+            width: fit-content;
             float: right;
             margin-right: 15px;
             padding-right: 0;
-            width: min-content;
 
         }
 
@@ -85,7 +84,7 @@
         <div class="col-sm-8 text-left container">
             <div class="table-wrapper">
 
-                <c:set var="refreshLink" value="/shop/${pageName}/{page}?recordsPerPage={records}"/>
+                <c:set var="refreshLink" value="/${pageName}/{page}?recordsPerPage={records}"/>
                 <c:set var = "refWithPage" value = "${fn:replace(refreshLink, '{page}', page.number)}"/>
                 <c:set var ="fullSelfLink" value = "${fn:replace(refWithPage, '{records}', page.size)}"/>
 
@@ -142,7 +141,7 @@
                             <th>${order.name}</th>
                             <th>${order.address}</th>
                             <th><spring:message code="shop.orderPage.status.${order.currentStatus}"/></th>
-                            <th><a class="btn btn-primary" href="/shop/order/${order.orderId}" role="button">
+                            <th><a class="btn btn-primary" href="/order/${order.orderId}" role="button">
                                 <spring:message code="doctor.page.patientsList.open"/></a>
                             </th>
                         </tr>

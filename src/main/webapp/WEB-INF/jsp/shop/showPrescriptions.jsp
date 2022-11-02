@@ -84,7 +84,7 @@
         <div class="col-sm-8 text-left container">
             <div class="table-wrapper">
 
-                <c:set var="refreshLink" value="/shop/prescriptions/{page}?recordsPerPage={records}"/>
+                <c:set var="refreshLink" value="/prescriptions/{page}?recordsPerPage={records}"/>
                 <c:set var = "refWithPage" value = "${fn:replace(refreshLink, '{page}', page.number)}"/>
                 <c:set var ="fullSelfLink" value = "${fn:replace(refWithPage, '{records}', page.size)}"/>
 

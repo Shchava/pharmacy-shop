@@ -32,7 +32,7 @@ public class PrescriptionListController {
 
 
 
-    @RequestMapping(value = "/shop/prescriptions/{pageNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/prescriptions/{pageNumber}", method = RequestMethod.GET)
     public String getOrders(@PathVariable(required = false) int pageNumber,
                             @RequestParam(defaultValue = "10", required = false) int recordsPerPage,
                             Principal principal,
@@ -45,7 +45,7 @@ public class PrescriptionListController {
         return "shop/showPrescriptions";
     }
 
-    @RequestMapping(value = "/shop/prescriptions/{pageNumber}", method = RequestMethod.POST)
+    @RequestMapping(value = "/prescriptions/{pageNumber}", method = RequestMethod.POST)
     public String deletePrescription(@PathVariable(required = false) int pageNumber,
                             @RequestParam(defaultValue = "10", required = false) int recordsPerPage,
                             @RequestParam(required = false) long prescriptionId,

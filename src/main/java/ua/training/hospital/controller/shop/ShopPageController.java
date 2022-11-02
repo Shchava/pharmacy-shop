@@ -6,14 +6,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.training.hospital.entity.shop.Product;
 import ua.training.hospital.service.shop.ProductsService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Order(SecurityProperties.DEFAULT_FILTER_ORDER)
@@ -37,5 +38,18 @@ public class ShopPageController {
 
         logger.debug("returning shop/shopPage.jsp page");
         return "shop/shopPage";
+    }
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @ResponseBody
+    @RequestMapping(value = "/shop/medicinefillhelper", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> defaultShowPatient(@RequestParam(defaultValue = "", required = true) String query,
+                                     Model model) {
+
+        logger.debug("requested /shop/medicinefillhelper");
+
+        List<Product> found = productsService.getAllProductsWithTitleContaining(query);
+
+        return found.stream().map(Product::getName).collect(Collectors.toList());
     }
 }

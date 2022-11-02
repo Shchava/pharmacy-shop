@@ -15,20 +15,20 @@
                 </li>
                 <sec:authorize access="isAuthenticated()">
                 <li>
-                    <a class="nav-link" href="/shop/cart"><spring:message code="header.cart"/><span
+                    <a class="nav-link" href="/cart"><spring:message code="header.cart"/><span
                             class="sr-only">(current)</span></a>
                 </li>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <li>
-                        <a class="nav-link" href="/shop/orders/0"><spring:message code="header.orders"/><span
+                        <a class="nav-link" href="/orders/0"><spring:message code="header.orders"/><span
                                 class="sr-only">(current)</span></a>
                     </li>
                 </sec:authorize>
 
                 <sec:authorize access="hasRole('SHOP_WORKER')">
                     <li>
-                        <a class="nav-link" href="/shop/allOrders/0"><spring:message code="header.allOrders"/><span
+                        <a class="nav-link" href="/allOrders/0"><spring:message code="header.allOrders"/><span
                                 class="sr-only">(current)</span></a>
                     </li>
                 </sec:authorize>
@@ -42,7 +42,7 @@
                 </li>
                 <sec:authorize access="isAuthenticated()">
                 <li>
-                    <a class="nav-link" href="/shop/prescriptions/0"><spring:message code="header.prescriptions"/><span
+                    <a class="nav-link" href="/prescriptions/0"><spring:message code="header.prescriptions"/><span
                             class="sr-only">(current)</span></a>
                 </li>
                 </sec:authorize>
